@@ -199,6 +199,8 @@ int main(int argc, char *argv[])
         } else {
             imlib_context_set_image(thumbnail);
             imlib_image_set_format(opt.format);
+            imlib_image_attach_data_value("quality", NULL, opt.quality, NULL);
+            imlib_image_attach_data_value("compression", NULL, opt.compression, NULL);
 
             filenameThumb = imPrintf(opt.thumbFile, tm, NULL, NULL, thumbnail);
             fd = scrotCheckIfOverwriteFile(&filenameThumb);
@@ -248,7 +250,7 @@ static void initXAndImlib(const char *dispStr, int screenNumber)
     imlib_context_set_colormap(cm);
     imlib_context_set_color_modifier(NULL);
     imlib_context_set_operation(IMLIB_OP_COPY);
-    imlib_set_cache_size(0);
+    imlib_set_cache_size(64); /* reduced from 0 for better performance on 3GB RAM systems */
 }
 
 /* atexit register func. */
@@ -463,7 +465,7 @@ int scrotGetGeometry(Window target, int *rx, int *ry, int *rw, int *rh)
             /* HACK: there doesn't seem to be any way to figure out whether the
              * raise request was accepted or rejected. so just sleep a bit to
              * give the WM some time to update. */
-            scrotSleepFor(clockNow(), 160);
+            scrotSleepFor(clockNow(), 40);
         }
     }
     stat = XGetWindowAttributes(disp, target, &attr);

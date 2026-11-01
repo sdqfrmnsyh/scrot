@@ -66,8 +66,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 static char defaultOutputFile[] = "%Y-%m-%d-%H%M%S_$wx$h_scrot.$F";
 struct ScrotOptions opt = {
-    .quality = 75,
-    .compression = 7,
+    .quality = 70,
+    .compression = 5,
     .lineStyle = LineSolid,
     .lineOpacity = SELECTION_OPACITY_DEFAULT,
     .stackDirection = HORIZONTAL,
